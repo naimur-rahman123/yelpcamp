@@ -1,0 +1,27 @@
+<%- include("../partials/header") %>
+
+<header class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">Welcome to YelpCamp!!!</h1>
+        <p class="lead">View our hand-picked campgrounds from all over the world</p>
+        <a class="btn btn-primary btn-lg" href="/campgrounds/new" role="button">Add a new Campground</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <% campgrounds.forEach(camp => { %>
+        <div class="col-lg-4 col-md-6 my-4">
+            <div class="card text-center" style="width: 18rem;">
+                <img src=" <%= camp['image'] %> " class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"> <%= camp['name'] %> </h5>
+                    <p class="mt-4"> <a href=" /campgrounds/<%= camp['_id'] %>  " class="btn btn-outline-primary">More info</a> </p>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

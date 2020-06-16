@@ -1,0 +1,64 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead mt-5">YelpCamp</p>
+            <ul class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card mt-5" style="width: 100%">
+                <img src="<%= campground.image %>" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="float-right">$<%= campground.price %>/night</h4>
+                    <h4 class="card-title"><a href="#"><%= campground.name %></a></h4>
+                    <p class="card-text"><%= campground.description %></p>
+                    <p class="card-text"><em>Submitted by : </em><%= campground.author.username %></p>
+                    <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+                    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-outline-warning">Edit</a>
+                    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card my-4">
+                        <div>
+                            <a class="btn btn-success float-right m-3"
+                                href="/campgrounds/<%= campground._id %>/comments/new">
+                                Add a new Comment</a>
+                        </div>
+                        <hr class="style-two">
+                        <div class="card-body">
+                            <% campground.comments.forEach(comment => { %>
+                            <span class="float-right">10 days ago</span>
+                            <h5 class="card-title"><%= comment.author.username %></h5>
+                            <p class="card-text"><%= comment.text %></p>
+                            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                            <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+                                class="btn btn-sm btn-outline-warning">Edit</a>
+                            <form class="delete-form"
+                                action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                method="POST">
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                            <% } %>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <%- include("../partials/footer") %>
