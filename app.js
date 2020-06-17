@@ -13,6 +13,7 @@ const Comment = require('./models/comment');
 const User = require('./models/user');
 const seedDB = require('./seeds');
 const user = require('./models/user');
+var url = process.env.DATABASEURL;
 
 //REQURING ROUTES
 const commentRoutes = require('./routes/comments');
@@ -24,14 +25,7 @@ app.use(flash());
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose
-    .connect(
-        'mongodb+srv://naimurRahman:ilovehmath1@cluster0-6armv.mongodb.net/naimurRahman?retryWrites=true&w=majority',
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to DB');
     })
